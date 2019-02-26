@@ -27,6 +27,8 @@ data_set = "dial.txt"
 # Find All Results
 rst_id_all = []
 rst_all = []
+# rst_file_name = "rst.txt"
+# rst_output = open(source_path + rst_file_name, "w")
 with open(source_path + data_set, "r") as in_file:
     for line in in_file.readlines():
         obj = json.loads(line)
@@ -36,8 +38,10 @@ with open(source_path + data_set, "r") as in_file:
             content = json.loads(obj["dial"][-1]["content"])
             rst_all.append(content)
             rst_id_all.append(obj["id"])
+            # rst_output.write(obj["dial"][-1]["content"] + "\n")
         except:
             pass
+# rst_output.close()
 print("Number of Results:", len(rst_all))
 
 # Find All Diagnoses
