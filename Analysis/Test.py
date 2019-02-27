@@ -14,14 +14,14 @@ data_set = "dial.txt"
 
 
 # Find Duplicate ID(s)
-# id_all = set()
-# with open(source_path + data_set, "r") as in_file:
-#     for line in in_file.readlines():
-#         obj = json.loads(line)
-#         if obj["id"] not in id_all:
-#             id_all.add(obj["id"])
-#         else:
-#             print(obj["id"])
+id_all = set()
+with open(source_path + data_set, "r") as in_file:
+    for line in in_file.readlines():
+        obj = json.loads(line)
+        if obj["id"] not in id_all:
+            id_all.add(obj["id"])
+        else:
+            print(obj["id"])
 
 
 # Find All Results

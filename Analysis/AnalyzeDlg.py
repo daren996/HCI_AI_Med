@@ -14,7 +14,7 @@ source_path = "../DataSet/"
 data_set = "dial.txt"
 
 
-# service
+# all services
 # service_needed = {}
 # with open(source_path + data_set, "r") as in_file:
 #     for line in in_file.readlines():
@@ -28,7 +28,7 @@ data_set = "dial.txt"
 # print("Number of services needed is:", len(service_needed), list(service_needed.keys()))
 
 
-# pregnant
+# whether pregnant
 # count_no_asked = 0
 # with open(source_path + data_set, "r") as in_file:
 #     for line in in_file.readlines():
@@ -80,35 +80,35 @@ def getTime(timeStr):
 # plt.show()
 
 
-# Q&A&Time [[(question, answer, time), (...), ...], [...], ...]
-que_ans_time_arr = []
-with open(source_path + data_set, "r") as in_file:
-    for line in in_file.readlines():
-        obj = json.loads(line)
-        c_time = []
-        r_time = []
-        if obj["dial"][0]["speaker"] != "Robot":
-            print("ERROR: client start", obj["id"])
-            continue
-        for x in range(1, len(obj["dial"])):  # check no continuous speaker
-            if obj["dial"][x]["speaker"] == obj["dial"][x-1]["speaker"]:
-                print("ERROR: continuous speaker:", obj["id"])
-        for dial in json.loads(line)["dial"]:
-            if dial["speaker"] == "Robot":
-                r_time.append((dial["content"], getTime(dial["time"][1])))
-            if dial["speaker"] == "client":
-                c_time.append((dial["content"], getTime(dial["time"][1])))
-        que_ans_time = []
-        for x in range(1, len(c_time)):
-            time_dif = r_time[x][1] - c_time[x-1][1] + 1
-            if time_dif < 0:
-                time_dif += 86400
-            que_ans_time.append((r_time[x][0], c_time[x][0], time_dif))
-        que_ans_time_arr.append(que_ans_time)
+# get format: Q&A&Time [[(question, answer, time), (...), ...], [...], ...]
+# que_ans_time_arr = []
+# with open(source_path + data_set, "r") as in_file:
+#     for line in in_file.readlines():
+#         obj = json.loads(line)
+#         c_time = []
+#         r_time = []
+#         if obj["dial"][0]["speaker"] != "Robot":
+#             print("ERROR: client start", obj["id"])
+#             continue
+#         for x in range(1, len(obj["dial"])):  # check no continuous speaker
+#             if obj["dial"][x]["speaker"] == obj["dial"][x-1]["speaker"]:
+#                 print("ERROR: continuous speaker:", obj["id"])
+#         for dial in json.loads(line)["dial"]:
+#             if dial["speaker"] == "Robot":
+#                 r_time.append((dial["content"], getTime(dial["time"][1])))
+#             if dial["speaker"] == "client":
+#                 c_time.append((dial["content"], getTime(dial["time"][1])))
+#         que_ans_time = []
+#         for x in range(1, len(c_time)):
+#             time_dif = r_time[x][1] - c_time[x-1][1] + 1
+#             if time_dif < 0:
+#                 time_dif += 86400
+#             que_ans_time.append((r_time[x][0], c_time[x][0], time_dif))
+#         que_ans_time_arr.append(que_ans_time)
 # print(len(que_ans_time_arr))
 
 # most time-cost question
-for que_ans_time in que_ans_time_arr:
-    rank_que_ans_time = sorted(que_ans_time, key=lambda x: x[2], reverse=True)
-    print(rank_que_ans_time)
+# for que_ans_time in que_ans_time_arr:
+#     rank_que_ans_time = sorted(que_ans_time, key=lambda x: x[2], reverse=True)
+#     print(rank_que_ans_time)
 
