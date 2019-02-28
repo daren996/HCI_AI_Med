@@ -84,7 +84,7 @@ rank_show_sym = 10
 rank_sym = rank_sym[0:rank_show_sym] + [('else', sum([sym[1] for sym in rank_sym[rank_show_sym:]]))]
 # for sym in rank_sym:
 #     print(sym)
-
+ 
 
 # plot
 # fig1 = plt.figure(1, figsize=(12, 5))
