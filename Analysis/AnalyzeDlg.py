@@ -1,4 +1,3 @@
-
 """
 Structure of dial.txt:
 obj{"id": id, "dial": dial}
@@ -13,19 +12,18 @@ import math
 source_path = "../DataSet/"
 data_set = "dial.txt"
 
-
 # all services
-# service_needed = {}
-# with open(source_path + data_set, "r") as in_file:
-#     for line in in_file.readlines():
-#         obj = json.loads(line)
-#         if "需要哪方面的服务" not in obj["dial"][0]["content"]:
-#             # print(obj["id"])
-#             continue
-#         if obj["dial"][1]["content"] not in service_needed:
-#             service_needed[obj["dial"][1]["content"]] = 0
-#         service_needed[obj["dial"][1]["content"]] += 1
-# print("Number of services needed is:", len(service_needed), list(service_needed.keys()))
+service_needed = {}
+with open(source_path + data_set, "r") as in_file:
+    for line in in_file.readlines():
+        obj = json.loads(line)
+        if "需要哪方面的服务" not in obj["dial"][0]["content"]:
+            # print(obj["id"])
+            continue
+        if obj["dial"][1]["content"] not in service_needed:
+            service_needed[obj["dial"][1]["content"]] = 0
+        service_needed[obj["dial"][1]["content"]] += 1
+print("Number of services needed is:", len(service_needed), list(service_needed.keys()))
 
 
 # whether pregnant
@@ -50,6 +48,7 @@ def getTime(timeStr):
     temp = timeStr.split(":")
     timeSec = int(temp[0]) * 3600 + int(temp[1]) * 60 + int(temp[2])
     return timeSec
+
 
 # total time
 # time_arr = []
@@ -76,9 +75,8 @@ def getTime(timeStr):
 # ax.bar([x[0] for x in time_draw], [x[1] for x in time_draw])
 # ax.set_ylim(0, 62)
 # ax.set_xlim(-10, 500)
-# fig.savefig("time_dist.jpg")
+# fig.savefig("time_dist.png")
 # plt.show()
-
 
 # get format: Q&A&Time [[(question, answer, time), (...), ...], [...], ...]
 # que_ans_time_arr = []
@@ -111,4 +109,3 @@ def getTime(timeStr):
 # for que_ans_time in que_ans_time_arr:
 #     rank_que_ans_time = sorted(que_ans_time, key=lambda x: x[2], reverse=True)
 #     print(rank_que_ans_time)
-
