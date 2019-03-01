@@ -46,9 +46,9 @@ with open(source_path + data_set, "r") as in_file:
 print(len(que_ans_time_arr))
 for que_ans_time in que_ans_time_arr:
     if len(que_ans_time) < 3:
-        print(que_ans_time)
+        print(len(que_ans_time), que_ans_time)
     else:
-        print(que_ans_time[-3:])
+        print(len(que_ans_time), que_ans_time[-3:])
 
 # plot all time (3d)
 # que_ans_time_arr = que_ans_time_arr[100:200]
