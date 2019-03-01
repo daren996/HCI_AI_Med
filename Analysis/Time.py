@@ -19,6 +19,7 @@ source_path = "../DataSet/"
 data_set = "dial_no_rst.txt"
 
 
+# get time array
 que_ans_time_arr = []
 with open(source_path + data_set, "r") as in_file:
     for line in in_file.readlines():
@@ -44,13 +45,15 @@ with open(source_path + data_set, "r") as in_file:
             que_ans_time.append((r_time[x][0], c_time[x][0], time_dif))
         que_ans_time_arr.append(que_ans_time)
 print(len(que_ans_time_arr))
+
+# get last 3 questions, answers and their times
 for que_ans_time in que_ans_time_arr:
     if len(que_ans_time) < 3:
         print(len(que_ans_time), que_ans_time)
     else:
         print(len(que_ans_time), que_ans_time[-3:])
 
-# plot all time (3d)
+# plot all time (in 3d)
 # que_ans_time_arr = que_ans_time_arr[100:200]
 # px = np.linspace(0, 1, 100)
 # py = np.arange(0, len(que_ans_time_arr), 1)

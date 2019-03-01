@@ -88,52 +88,62 @@ def getTime(timeStr):
 # plt.show()
 
 # get format: Q&A&Time [[(question, answer, time), (...), ...], [...], ...]
-que_ans_time_arr = []
-with open(source_path + data_set, "r") as in_file:
-    for line in in_file.readlines():
-        obj = json.loads(line)
-        c_time = []
-        r_time = []
-        if obj["dial"][0]["speaker"] != "Robot":
-            print("ERROR: client start", obj["id"])
-            continue
-        for x in range(1, len(obj["dial"])):  # check no continuous speaker
-            if obj["dial"][x]["speaker"] == obj["dial"][x-1]["speaker"]:
-                print("ERROR: continuous speaker:", obj["id"])
-        for dial in json.loads(line)["dial"]:
-            if dial["speaker"] == "Robot":
-                r_time.append((dial["content"], getTime(dial["time"][1])))
-            if dial["speaker"] == "client":
-                c_time.append((dial["content"], getTime(dial["time"][1])))
-        que_ans_time = []
-        for x in range(0, len(c_time)):
-            time_dif = r_time[x+1][1] - c_time[x][1] + 1
-            if time_dif < 0:
-                time_dif += 86400
-            que_ans_time.append((r_time[x][0], c_time[x][0], time_dif))
-        que_ans_time_arr.append(que_ans_time)
-print(len(que_ans_time_arr))
+# que_ans_time_arr = []
+# with open(source_path + data_set, "r") as in_file:
+#     for line in in_file.readlines():
+#         obj = json.loads(line)
+#         c_time = []
+#         r_time = []
+#         if obj["dial"][0]["speaker"] != "Robot":
+#             print("ERROR: client start", obj["id"])
+#             continue
+#         for x in range(1, len(obj["dial"])):  # check no continuous speaker
+#             if obj["dial"][x]["speaker"] == obj["dial"][x-1]["speaker"]:
+#                 print("ERROR: continuous speaker:", obj["id"])
+#         for dial in json.loads(line)["dial"]:
+#             if dial["speaker"] == "Robot":
+#                 r_time.append((dial["content"], getTime(dial["time"][1])))
+#             if dial["speaker"] == "client":
+#                 c_time.append((dial["content"], getTime(dial["time"][1])))
+#         que_ans_time = []
+#         for x in range(0, len(c_time)):
+#             time_dif = r_time[x+1][1] - c_time[x][1] + 1
+#             if time_dif < 0:
+#                 time_dif += 86400
+#             que_ans_time.append((r_time[x][0], c_time[x][0], time_dif))
+#         que_ans_time_arr.append(que_ans_time)
+# print(len(que_ans_time_arr))
 
 # most time-cost question
-fir_ques = []
-for que_ans_time in que_ans_time_arr:
-    rank_que_ans_time = sorted(que_ans_time, key=lambda x: x[2], reverse=True)
-    fir_ques.append(rank_que_ans_time[0][0])
-    # print(rank_que_ans_time)
+# fir_ques = []
+# for que_ans_time in que_ans_time_arr:
+#     rank_que_ans_time = sorted(que_ans_time, key=lambda x: x[2], reverse=True)
+#     fir_ques.append(rank_que_ans_time[0][0])
+#     # print(rank_que_ans_time)
+# fir_que_cnt = [x for x in dict(Counter(fir_ques)).items()]
+# print(fir_que_cnt)
+# rank_show_sym = 20
+# fir_que_cnt = fir_que_cnt[0:rank_show_sym] + [('else', sum([sym[1] for sym in fir_que_cnt[rank_show_sym:]]))]
+# fig = plt.figure(3, figsize=(10, 8))
+# ax = fig.add_subplot(111)
+# ax.set_title('symptom')
+# labels = ['{}:{}'.format(que, num) for que, num in zip([que[0] for que in fir_que_cnt], [que[1] for que in fir_que_cnt])]
+# ax.pie([que[1] for que in fir_que_cnt], labels=labels, explode=[0] * rank_show_sym + [0.1], shadow=True)
+# fig.savefig('symptoms_info.png')
+# plt.show()
 
-fir_que_cnt = [x for x in dict(Counter(fir_ques)).items()]
-print(fir_que_cnt)
-rank_show_sym = 20
-fir_que_cnt = fir_que_cnt[0:rank_show_sym] + [('else', sum([sym[1] for sym in fir_que_cnt[rank_show_sym:]]))]
 
-
-fig = plt.figure(3, figsize=(10, 8))
-ax = fig.add_subplot(111)
-ax.set_title('symptom')
-labels = ['{}:{}'.format(que, num) for que, num in zip([que[0] for que in fir_que_cnt], [que[1] for que in fir_que_cnt])]
-ax.pie([que[1] for que in fir_que_cnt], labels=labels, explode=[0] * rank_show_sym + [0.1], shadow=True)
-fig.savefig('symptoms_info.png')
-
-plt.show()
+# past medical history
+ask_med_hst = []
+with open(source_path + data_set, "r") as in_file:
+    for _, line in enumerate(in_file.readlines()):
+        asked = False
+        obj = json.loads(line)
+        for __, que in enumerate(obj["dial"]):
+            if not asked and "史" in que["content"] and que["speaker"] == "Robot" and __ < len(obj["dial"])-1:
+                print(_, que["content"], obj["dial"][__+1]["content"])
+                ask_med_hst.append(que["content"])
+                asked = True
+print(len(ask_med_hst))
 
 

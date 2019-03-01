@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3ce8f352-c263-4a0f-bdee-4da2b2edcfd4" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/AnalyzeDlg.py" beforeDir="false" afterPath="$PROJECT_DIR$/AnalyzeDlg.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Time.py" beforeDir="false" afterPath="$PROJECT_DIR$/Time.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Log/last3ques_noDgn" beforeDir="false" afterPath="$PROJECT_DIR$/../Log/last3ques_noDgn" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -34,11 +34,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/AnalyzeDlg.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="166">
-              <caret line="90" selection-start-line="90" selection-end-line="114" selection-end-column="28" />
+            <state relative-caret-position="396">
+              <caret line="146" column="33" selection-start-line="146" selection-start-column="33" selection-end-line="146" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -79,11 +79,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Time.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="400">
-              <caret line="50" column="33" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
+            <state relative-caret-position="252">
+              <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
               <folding>
                 <element signature="e#139#150#0" expanded="true" />
               </folding>
@@ -139,10 +139,10 @@
         <option value="$PROJECT_DIR$/LoadDataset.py" />
         <option value="$PROJECT_DIR$/Test.py" />
         <option value="$PROJECT_DIR$/AnalyzeRst.py" />
-        <option value="$PROJECT_DIR$/AnalyzeDlg.py" />
         <option value="$PROJECT_DIR$/Symptoms.py" />
         <option value="$PROJECT_DIR$/Age.py" />
         <option value="$PROJECT_DIR$/Time.py" />
+        <option value="$PROJECT_DIR$/AnalyzeDlg.py" />
       </list>
     </option>
   </component>
@@ -190,7 +190,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.Time">
+  <component name="RunManager" selected="Python.AnalyzeDlg">
     <configuration name="Age" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="Analysis" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -305,10 +305,10 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.AnalyzeDlg" />
         <item itemvalue="Python.Time" />
         <item itemvalue="Python.Age" />
         <item itemvalue="Python.Symptoms" />
-        <item itemvalue="Python.AnalyzeDlg" />
         <item itemvalue="Python.AnalyzeRst" />
       </list>
     </recent_temporary>
@@ -428,13 +428,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/AnalyzeDlg.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="166">
-          <caret line="90" selection-start-line="90" selection-end-line="114" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///usr/local/lib/python3.7/site-packages/numpy/lib/stride_tricks.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="155">
@@ -444,11 +437,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Time.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="400">
-          <caret line="50" column="33" selection-start-line="50" selection-start-column="33" selection-end-line="50" selection-end-column="33" />
+        <state relative-caret-position="252">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
           <folding>
             <element signature="e#139#150#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/AnalyzeDlg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="146" column="33" selection-start-line="146" selection-start-column="33" selection-end-line="146" selection-end-column="33" />
         </state>
       </provider>
     </entry>
