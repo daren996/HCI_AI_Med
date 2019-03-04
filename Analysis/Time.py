@@ -15,8 +15,8 @@ from mpl_toolkits.mplot3d import Axes3D
 
 
 source_path = "../DataSet/"
-# data_set = "dial_dgn.txt"
-data_set = "dial_no_rst.txt"
+data_set = "dial_dgn.txt"
+# data_set = "dial_no_rst.txt"
 
 
 # get time array
@@ -47,32 +47,32 @@ with open(source_path + data_set, "r") as in_file:
 print(len(que_ans_time_arr))
 
 # get last 3 questions, answers and their times
-for que_ans_time in que_ans_time_arr:
-    if len(que_ans_time) < 3:
-        print(len(que_ans_time), que_ans_time)
-    else:
-        print(len(que_ans_time), que_ans_time[-3:])
+# for que_ans_time in que_ans_time_arr:
+#     if len(que_ans_time) < 3:
+#         print(len(que_ans_time), que_ans_time)
+#     else:
+#         print(len(que_ans_time), que_ans_time[-3:])
 
 # plot all time (in 3d)
-# que_ans_time_arr = que_ans_time_arr[100:200]
-# px = np.linspace(0, 1, 100)
-# py = np.arange(0, len(que_ans_time_arr), 1)
-# px, py = np.meshgrid(px, py)
-# pz = np.zeros(shape=(len(que_ans_time_arr), 100))
-# for _, que_ans_time in enumerate(que_ans_time_arr):
-#     ax = np.linspace(0, 1, len(que_ans_time))
-#     ay = np.array([x[2] for x in que_ans_time])
-#     f = interpolate.interp1d(ax, ay, kind='cubic')
-#     nx = np.linspace(0, 1, 100)
-#     ny = f(nx)
-#     pz[_] = ny
-#     # plt.plot(nx, ny)
-#     # plt.show()
-#     # exit(-1)
-# print(px.shape, py.shape, pz.shape)
-# fig = plt.figure()
-# ax = Axes3D(fig)
+que_ans_time_arr = que_ans_time_arr[150:200]
+px = np.linspace(0, 1, 100)
+py = np.arange(0, len(que_ans_time_arr), 1)
+px, py = np.meshgrid(px, py)
+pz = np.zeros(shape=(len(que_ans_time_arr), 100))
+for _, que_ans_time in enumerate(que_ans_time_arr):
+    ax = np.linspace(0, 1, len(que_ans_time))
+    ay = np.array([x[2] for x in que_ans_time])
+    f = interpolate.interp1d(ax, ay, kind='cubic')
+    nx = np.linspace(0, 1, 100)
+    ny = f(nx)
+    pz[_] = ny
+    # plt.plot(nx, ny)
+    # plt.show()
+    # exit(-1)
+print(px.shape, py.shape, pz.shape)
+fig = plt.figure()
+ax = Axes3D(fig)
 # ax.plot_surface(px, py, pz, rstride=1, cstride=1, cmap='rainbow')
-# # ax.plot_wireframe(px, py, pz, rstride=1, cstride=1, cmap='rainbow')
-# plt.show()
+ax.plot_wireframe(px, py, pz, rstride=1, cstride=1, cmap='rainbow')
+plt.show()
 
