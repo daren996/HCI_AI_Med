@@ -13,6 +13,7 @@ import numpy as np
 import math
 from collections import Counter
 from matplotlib.font_manager import FontProperties
+import csv
 
 
 font = FontProperties(fname='/System/Library/Fonts/PingFang.ttc')
@@ -22,17 +23,17 @@ source_path = "../DataSet/"
 data_set = "dial_dgn.txt"
 
 # all services
-service_needed = {}
-with open(source_path + data_set, "r") as in_file:
-    for line in in_file.readlines():
-        obj = json.loads(line)
-        if "需要哪方面的服务" not in obj["dial"][0]["content"]:
-            # print(obj["id"])
-            continue
-        if obj["dial"][1]["content"] not in service_needed:
-            service_needed[obj["dial"][1]["content"]] = 0
-        service_needed[obj["dial"][1]["content"]] += 1
-print("Number of services needed is:", len(service_needed), list(service_needed.keys()))
+# service_needed = {}
+# with open(source_path + data_set, "r") as in_file:
+#     for line in in_file.readlines():
+#         obj = json.loads(line)
+#         if "需要哪方面的服务" not in obj["dial"][0]["content"]:
+#             # print(obj["id"])
+#             continue
+#         if obj["dial"][1]["content"] not in service_needed:
+#             service_needed[obj["dial"][1]["content"]] = 0
+#         service_needed[obj["dial"][1]["content"]] += 1
+# print("Number of services needed is:", len(service_needed), list(service_needed.keys()))
 
 
 # whether pregnant
@@ -88,31 +89,40 @@ def getTime(timeStr):
 # plt.show()
 
 # get format: Q&A&Time [[(question, answer, time), (...), ...], [...], ...]
-# que_ans_time_arr = []
-# with open(source_path + data_set, "r") as in_file:
-#     for line in in_file.readlines():
-#         obj = json.loads(line)
-#         c_time = []
-#         r_time = []
-#         if obj["dial"][0]["speaker"] != "Robot":
-#             print("ERROR: client start", obj["id"])
-#             continue
-#         for x in range(1, len(obj["dial"])):  # check no continuous speaker
-#             if obj["dial"][x]["speaker"] == obj["dial"][x-1]["speaker"]:
-#                 print("ERROR: continuous speaker:", obj["id"])
-#         for dial in json.loads(line)["dial"]:
-#             if dial["speaker"] == "Robot":
-#                 r_time.append((dial["content"], getTime(dial["time"][1])))
-#             if dial["speaker"] == "client":
-#                 c_time.append((dial["content"], getTime(dial["time"][1])))
-#         que_ans_time = []
-#         for x in range(0, len(c_time)):
-#             time_dif = r_time[x+1][1] - c_time[x][1] + 1
-#             if time_dif < 0:
-#                 time_dif += 86400
-#             que_ans_time.append((r_time[x][0], c_time[x][0], time_dif))
-#         que_ans_time_arr.append(que_ans_time)
-# print(len(que_ans_time_arr))
+que_ans_time_arr = []
+with open(source_path + data_set, "r") as in_file:
+    for line in in_file.readlines():
+        obj = json.loads(line)
+        c_time = []
+        r_time = []
+        if obj["dial"][0]["speaker"] != "Robot":
+            print("ERROR: client start", obj["id"])
+            continue
+        for x in range(1, len(obj["dial"])):  # check no continuous speaker
+            if obj["dial"][x]["speaker"] == obj["dial"][x-1]["speaker"]:
+                print("ERROR: continuous speaker:", obj["id"])
+        for dial in json.loads(line)["dial"]:
+            if dial["speaker"] == "Robot":
+                r_time.append((dial["content"], getTime(dial["time"][1])))
+            if dial["speaker"] == "client":
+                c_time.append((dial["content"], getTime(dial["time"][1])))
+        que_ans_time = []
+        for x in range(1, len(c_time)):
+            time_dif = c_time[x][1] - c_time[x-1][1] + 1
+            if time_dif < 0:
+                time_dif += 86400
+            que_ans_time.append((r_time[x][0], c_time[x][0], time_dif))
+        que_ans_time_arr.append(que_ans_time)
+print(len(que_ans_time_arr))
+
+with open('quesTime.csv', 'w') as csvfile:
+    spamwriter = csv.writer(csvfile, dialect='excel')
+    spamwriter.writerow(["问题", "时间", "问题", "时间", "问题", "时间"])
+    for tim in que_ans_time_arr:
+        row = []
+        for ti in tim:
+            row += [ti[0], ti[1], ti[2]]
+        spamwriter.writerow(row)
 
 # most time-cost question
 # fir_ques = []
@@ -134,16 +144,16 @@ def getTime(timeStr):
 
 
 # past medical history
-ask_med_hst = []
-with open(source_path + data_set, "r") as in_file:
-    for _, line in enumerate(in_file.readlines()):
-        asked = False
-        obj = json.loads(line)
-        for __, que in enumerate(obj["dial"]):
-            if not asked and "史" in que["content"] and que["speaker"] == "Robot" and __ < len(obj["dial"])-1:
-                print(_, que["content"], obj["dial"][__+1]["content"])
-                ask_med_hst.append(que["content"])
-                asked = True
-print(len(ask_med_hst))
+# ask_med_hst = []
+# with open(source_path + data_set, "r") as in_file:
+#     for _, line in enumerate(in_file.readlines()):
+#         asked = False
+#         obj = json.loads(line)
+#         for __, que in enumerate(obj["dial"]):
+#             if not asked and "史" in que["content"] and que["speaker"] == "Robot" and __ < len(obj["dial"])-1:
+#                 print(_, que["content"], obj["dial"][__+1]["content"])
+#                 ask_med_hst.append(que["content"])
+#                 asked = True
+# print(len(ask_med_hst))
 
 

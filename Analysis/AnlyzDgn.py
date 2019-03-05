@@ -9,7 +9,7 @@ import csv
 
 
 source_path = "../DataSet/"
-data_set = "dial_no_rst.txt"
+data_set = "dial_dgn.txt"
 
 with open(source_path + data_set, "r") as in_file:
     lines = in_file.readlines()
@@ -18,8 +18,7 @@ with open(source_path + data_set, "r") as in_file:
 # print("Number of services needed is:", len(service_needed), list(service_needed.keys()))
 # print("Number of women who aren't asked about pregnancy:", count_no_asked)
 
-# get que_ans_time_arr
-# format: Q&A&Time [[(question, answer, time), (...), ...], [...], ...]
+# get format: Q&A&Time [[(question, answer, time), (...), ...], [...], ...]
 que_ans_time_arr = []
 with open(source_path + data_set, "r") as in_file:
     for line in in_file.readlines():
@@ -38,8 +37,8 @@ with open(source_path + data_set, "r") as in_file:
             if dial["speaker"] == "client":
                 c_time.append((dial["content"], Utils.getTime(dial["time"][1])))
         que_ans_time = []
-        for x in range(0, len(c_time)-1):
-            time_dif = r_time[x+1][1] - c_time[x][1] + 1
+        for x in range(0, len(c_time) - 1):
+            time_dif = r_time[x + 1][1] - c_time[x][1] + 1
             if time_dif < 0:
                 time_dif += 86400
             que_ans_time.append((r_time[x][0], c_time[x][0], time_dif))
@@ -93,7 +92,7 @@ print(time3_arr)
 
 # average time
 # last_qa_time = {}
-# for tim in time3_arr:
+# for tim in que_ans_time_arr:
 #     for ti in tim:
 #         if ti[0] not in last_qa_time:
 #             last_qa_time[ti[0]] = []
@@ -119,6 +118,5 @@ for que in que_ans_time_arr:
 for cat in que_cate_arr:
     print(cat, len(que_cate_arr[cat]),
           "%.2f" % np.mean(np.array([tim[1] for tim in que_cate_arr[cat]])), Utils.ques_type[cat])
-
 
 
