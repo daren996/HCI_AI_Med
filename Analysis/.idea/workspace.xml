@@ -2,9 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3ce8f352-c263-4a0f-bdee-4da2b2edcfd4" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/PMH.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Time.py" beforeDir="false" afterPath="$PROJECT_DIR$/Time.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/PMH.py" beforeDir="false" afterPath="$PROJECT_DIR$/PMH.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -47,8 +46,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/PMH.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="24" column="50" lean-forward="true" selection-start-line="24" selection-start-column="50" selection-end-line="24" selection-end-column="50" />
+            <state relative-caret-position="150">
+              <caret line="58" column="23" selection-start-line="58" selection-start-column="23" selection-end-line="58" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -68,8 +67,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Age.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="20" column="49" lean-forward="true" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="49" />
+            <state relative-caret-position="337">
+              <caret line="27" column="27" lean-forward="true" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="49" />
               <folding>
                 <element signature="e#2#13#0" expanded="true" />
               </folding>
@@ -317,9 +316,9 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.PMH" />
+        <item itemvalue="Python.Age" />
         <item itemvalue="Python.Time" />
         <item itemvalue="Python.AnalyzeDlg" />
-        <item itemvalue="Python.Age" />
         <item itemvalue="Python.Symptoms" />
       </list>
     </recent_temporary>
@@ -339,7 +338,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="16" y="68" width="1611" height="907" extended-state="0" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.10691824" />
       <window_info id="Structure" order="1" weight="0.25" />
@@ -456,8 +454,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Age.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="49" lean-forward="true" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="49" />
+        <state relative-caret-position="337">
+          <caret line="27" column="27" lean-forward="true" selection-start-line="20" selection-start-column="17" selection-end-line="20" selection-end-column="49" />
           <folding>
             <element signature="e#2#13#0" expanded="true" />
           </folding>
@@ -466,8 +464,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/PMH.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="24" column="50" lean-forward="true" selection-start-line="24" selection-start-column="50" selection-end-line="24" selection-end-column="50" />
+        <state relative-caret-position="150">
+          <caret line="58" column="23" selection-start-line="58" selection-start-column="23" selection-end-line="58" selection-end-column="23" />
         </state>
       </provider>
     </entry>
