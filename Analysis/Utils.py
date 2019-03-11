@@ -40,6 +40,99 @@ def noPregnantAsked(lines):
     return count_no_asked
 
 
+# get format: Q&A&Time [[(question, answer, time), (...), ...], [...], ...]
+def get_que_ans_time_arr(source_path, data_set, ):
+    que_ans_time_arr = []
+    with open(source_path + data_set, "r") as in_file:
+        for line in in_file.readlines():
+            obj = json.loads(line)
+            c_time = []
+            r_time = []
+            if obj["dial"][0]["speaker"] != "Robot":
+                print("ERROR: client start", obj["id"])
+                continue
+            for x in range(1, len(obj["dial"])):  # check no continuous speaker
+                if obj["dial"][x]["speaker"] == obj["dial"][x - 1]["speaker"]:
+                    print("ERROR: continuous speaker:", obj["id"])
+            for dial in json.loads(line)["dial"]:
+                if dial["speaker"] == "Robot":
+                    r_time.append((dial["content"], getTime(dial["time"][1])))
+                if dial["speaker"] == "client":
+                    c_time.append((dial["content"], getTime(dial["time"][1])))
+            que_ans_time = []
+            for x in range(0, len(c_time) - 1):
+                time_dif = r_time[x + 1][1] - c_time[x][1] + 1
+                if time_dif < 0:
+                    time_dif += 86400
+                que_ans_time.append((r_time[x][0], c_time[x][0], time_dif))
+            que_ans_time_arr.append(que_ans_time)
+            # print(que_ans_time)
+    return que_ans_time_arr
+
+
+# classify questions
+# que_cate_arr = {category: [(question, time), (...), ...]}
+def get_que_cate_arr(que_ans_time_arr):
+    que_cate_arr = {}
+    for cat in ques_type:
+        que_cate_arr[cat] = []
+    for que in que_ans_time_arr:
+        for qu in que:
+            classified = False
+            for cat in ques_type:
+                for ca in ques_type[cat]:
+                    if ca in qu[0]:
+                        que_cate_arr[cat].append((qu[0], qu[2]))
+                        classified = True
+            if not classified:
+                # print(qu[0])
+                que_cate_arr["else"].append((qu[0], qu[2]))
+    que_cate_arr_count = sum([len(que_cate_arr[cat]) for cat in que_cate_arr])
+    return que_cate_arr, que_cate_arr_count
+
+
+# classify questions
+# que_cate_arr = {category: [(question, time), (...), ...]}
+def get_que_cate_arr1(que_ans_time_arr):
+    que_cate_arr = {}
+    for cat in ques_type1:
+        que_cate_arr[cat] = []
+    for que in que_ans_time_arr:
+        for qu in que:
+            classified = False
+            for cat in ques_type1:
+                for ca in ques_type1[cat]:
+                    if ca in qu[0]:
+                        que_cate_arr[cat].append((qu[0], qu[2]))
+                        classified = True
+            if not classified:
+                # print(qu[0])
+                que_cate_arr["else"].append((qu[0], qu[2]))
+    que_cate_arr_count = sum([len(que_cate_arr[cat]) for cat in que_cate_arr])
+    return que_cate_arr, que_cate_arr_count
+
+
+# classify questions
+# que_cate_arr = {category: [(question, time), (...), ...]}
+def get_que_cate_arr2(que_ans_time_arr):
+    que_cate_arr = {}
+    for cat in ques_type2:
+        que_cate_arr[cat] = []
+    for que in que_ans_time_arr:
+        for qu in que:
+            classified = False
+            for cat in ques_type2:
+                for ca in ques_type2[cat]:
+                    if ca in qu[0]:
+                        que_cate_arr[cat].append((qu[0], qu[2]))
+                        classified = True
+            if not classified:
+                # print(qu[0])
+                que_cate_arr["else"].append((qu[0], qu[2]))
+    que_cate_arr_count = sum([len(que_cate_arr[cat]) for cat in que_cate_arr])
+    return que_cate_arr, que_cate_arr_count
+
+
 ques_type = {"服务": ["请问您需要哪方面的服务"],
              "年龄": ["年龄"],
              "性别": ["性别"],
@@ -58,3 +151,22 @@ ques_type = {"服务": ["请问您需要哪方面的服务"],
              "频率": ["持续性", "阵发性", "频率"],
              "其它": ["如果还有其它症状，请继续输入。如果没有，请点击没有了。"],
              "else": ["No Category but Description about Symptom at Most Time."]}
+
+ques_type1 = {"选择服务": ["请问您需要哪方面的服务"],
+              "症状描述": ["请选择您的症状", "对不起，没有找到相关症状，请重新输入"],
+              "个人背景": ["年龄", "性别", "孕妇", "妊娠"],
+              "个人体征": ["血压", "心率", "体温"],
+              "病前行为": ["发病前是否存在以下行为", "发病前是否有过以下情况"],
+              "症状信息": ["多久了", "多长时间了", "您的描述符合以下哪种症状", "符合以下哪种描述", "是否伴有", "性质",
+                       "部位", "颜色", "气味", "形状", "范围", "程度", "加重", "持续性", "阵发性", "频率",
+                       "如果还有其它症状，请继续输入。如果没有，请点击没有了"],
+              "病史": ["病史"],
+              "else": ["No Category but Description about Symptom at Most Time."]}
+
+ques_type2 = {"简答题": ["请问您需要哪方面的服务", "请选择您的症状", "对不起，没有找到相关症状，请重新输入。"],
+              "数字题": ["年龄", "血压", "心率", "体温", "多久了", "多长时间了"],
+              "单选题": ["性别", "孕妇", "妊娠", "性质", "颜色", "气味", "形状", "程度", "加重", "持续性", "频率", "阵发性",
+                      "符合以下哪种描述", "您的描述符合以下哪种症状"],
+              "多选题": ["发病前是否存在以下行为", "发病前是否有过以下情况？", "部位", "范围", "是否伴有"],
+              "选择加简答": ["病史", "如果还有其它症状，请继续输入。如果没有，请点击没有了。"],
+              "else": ["No Category but Description about Symptom at Most Time."]}

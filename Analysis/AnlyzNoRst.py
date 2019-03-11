@@ -47,7 +47,7 @@ with open(source_path + data_set, "r") as in_file:
         # print(que_ans_time)
 print(len(que_ans_time_arr))
 
-# time distribute
+# time distribute - last questions' time
 # time_arr = []
 # for qat in que_ans_time_arr:
 #     if len(qat) > 0:
@@ -102,6 +102,7 @@ print(time3_arr)
 #     print(len(last_qa_time[que]), que, np.mean(np.array(last_qa_time[que])))
 
 # classify questions
+# que_cate_arr = {category: [(question, time), (...), ...]}
 que_cate_arr = {}
 for cat in Utils.ques_type:
     que_cate_arr[cat] = []
@@ -116,9 +117,10 @@ for que in que_ans_time_arr:
         if not classified:
             # print(qu[0])
             que_cate_arr["else"].append((qu[0], qu[2]))
+que_cate_arr_count = sum([len(que_cate_arr[cat]) for cat in que_cate_arr])
 for cat in que_cate_arr:
-    print(cat, len(que_cate_arr[cat]),
-          "%.2f" % np.mean(np.array([tim[1] for tim in que_cate_arr[cat]])), Utils.ques_type[cat])
+    print(cat, len(que_cate_arr[cat]), "%.2f" % (len(que_cate_arr[cat])/que_cate_arr_count*100) + "%",
+          "%.2f" % np.mean(np.array([tim[1] for tim in que_cate_arr[cat]])) + "s", Utils.ques_type[cat])
 
 
 
