@@ -21,12 +21,12 @@ data_no_rst = "dial_no_rst.txt"
 que_ans_time_arr_dgn = Utils.get_que_ans_time_arr(source_path, data_dgn)
 print(len(que_ans_time_arr_dgn))
 # que_cate_arr = {category: [(question, time), (...), ...]}
-que_cate_arr_dgn, que_cate_arr_count_dgn = Utils.get_que_cate_arr1(que_ans_time_arr_dgn)
+que_cate_arr_dgn, que_cate_arr_count_dgn = Utils.get_que_cate_arr(que_ans_time_arr_dgn)
 
 # get no_rst data
 que_ans_time_arr_no_rst = Utils.get_que_ans_time_arr(source_path, data_no_rst)
 print(len(que_ans_time_arr_no_rst))
-que_cate_arr_no_rst, que_cate_arr_count_no_rst = Utils.get_que_cate_arr1(que_ans_time_arr_no_rst)
+que_cate_arr_no_rst, que_cate_arr_count_no_rst = Utils.get_que_cate_arr(que_ans_time_arr_no_rst)
 
 # compare statistics of dgn and no_rst
 cate_cmp_arr = {}
@@ -36,14 +36,15 @@ for cat in que_cate_arr_dgn:
                           len(que_cate_arr_no_rst[cat]) / que_cate_arr_count_no_rst * 100),
                          (np.mean(np.array([tim[1] for tim in que_cate_arr_dgn[cat]])),
                           np.mean(np.array([tim[1] for tim in que_cate_arr_no_rst[cat]])))]
-print("dgn")
-for cat in que_cate_arr_dgn:
-    print(cat, len(que_cate_arr_dgn[cat]), "%.2f" % (len(que_cate_arr_dgn[cat]) / que_cate_arr_count_dgn * 100) + "%",
-          "%.2f" % np.mean(np.array([tim[1] for tim in que_cate_arr_dgn[cat]])) + "s", Utils.ques_type1[cat])
-print("no_rst")
-for cat in que_cate_arr_no_rst:
-    print(cat, len(que_cate_arr_no_rst[cat]), "%.2f" % (len(que_cate_arr_no_rst[cat]) / que_cate_arr_count_no_rst * 100) + "%",
-          "%.2f" % np.mean(np.array([tim[1] for tim in que_cate_arr_no_rst[cat]])) + "s", Utils.ques_type1[cat])
+# print("dgn")
+# for cat in que_cate_arr_dgn:
+#     print(cat, len(que_cate_arr_dgn[cat]), "%.2f" % (len(que_cate_arr_dgn[cat]) / que_cate_arr_count_dgn * 100) + "%",
+#           "%.2f" % np.mean(np.array([tim[1] for tim in que_cate_arr_dgn[cat]])) + "s", Utils.ques_type[cat])
+# print("no_rst")
+# for cat in que_cate_arr_no_rst:
+#     print(cat, len(que_cate_arr_no_rst[cat]),
+#           "%.2f" % (len(que_cate_arr_no_rst[cat]) / que_cate_arr_count_no_rst * 100) + "%",
+#           "%.2f" % np.mean(np.array([tim[1] for tim in que_cate_arr_no_rst[cat]])) + "s", Utils.ques_type[cat])
 
 # plot percentage of complete dialogue and uncompleted dialogue and their ratio
 # ind = np.arange(len(cate_cmp_arr))    # the x locations for the groups
