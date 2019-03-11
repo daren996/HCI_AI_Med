@@ -38,7 +38,7 @@ with open(source_path + data_set, "r") as in_file:
 count = len(ask_med_hst)
 print(count)
 
-
+# whether a substitute of return visit
 for age in age_gender:
     male = 0
     female = 0
@@ -50,7 +50,47 @@ for age in age_gender:
         else:
             print("ERROR:", gen)
     # print(age, male, male / count, female, female / count, male + female, (male + female) / count)
+all_count = sum([x[1] for x in all_age.items()])
+num_no = {}
+num_yes = {}
+with open("../Log/past_med_hst", "r") as in_file:
+    lines = in_file.readlines()
+    for line in lines[4:]:
+        temp = line.strip().split(" ")
+        age = temp[2]
+        if temp[-2] == "否":
+            if age not in num_no:
+                num_no[age] = 0
+            num_no[age] += 1
+        elif temp[-2] == "是":
+            if age not in num_yes:
+                num_yes[age] = 0
+            num_yes[age] += 1
+        else:
+            print("ERROR!", temp)
+for age in all_age:
+    no = 0
+    yes = 0
+    if age in num_no:
+        no = num_no[age]
+    if age in num_yes:
+        yes = num_yes[age]
+    print(age, all_age[age]-no-yes, "%.4f" % ((all_age[age]-no-yes)/all_count),
+          no, "%.4f" % (no/all_count), yes, "%.4f" % (yes/all_count),
+          all_age[age], "%.4f" % (all_age[age]/all_count))
 
+# whether severe
+for age in age_gender:
+    male = 0
+    female = 0
+    for gen in age_gender[age]:
+        if gen == "男":
+            male += 1
+        elif gen == "女":
+            female += 1
+        else:
+            print("ERROR:", gen)
+    # print(age, male, male / count, female, female / count, male + female, (male + female) / count)
 all_count = sum([x[1] for x in all_age.items()])
 num_mild = {}
 num_severe = {}
@@ -77,4 +117,3 @@ for age in all_age:
     print(age, all_age[age]-mild-severe, "%.4f" % ((all_age[age]-mild-severe)/all_count),
           mild, "%.4f" % (mild/all_count), severe, "%.4f" % (severe/all_count),
           all_age[age], "%.4f" % (all_age[age]/all_count))
-

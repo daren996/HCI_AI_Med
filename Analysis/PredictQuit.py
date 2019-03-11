@@ -18,17 +18,10 @@ source_path = "../DataSet/"
 data_dgn = "dial_dgn.txt"
 data_no_rst = "dial_no_rst.txt"
 
-# get dgn data
+# get dgn and no_rst data
 # get format: Q&A&Time [[(question, answer, time), (...), ...], [...], ...]
 que_ans_time_arr_dgn = Utils.get_que_ans_time_arr(source_path, data_dgn)
-print(len(que_ans_time_arr_dgn))
-# que_cate_arr = {category: [(question, time), (...), ...]}
-que_cate_arr_dgn, que_cate_arr_count_dgn = Utils.get_que_cate_arr(que_ans_time_arr_dgn)
-
-# get no_rst data
 que_ans_time_arr_no_rst = Utils.get_que_ans_time_arr(source_path, data_no_rst)
-print(len(que_ans_time_arr_no_rst))
-que_cate_arr_no_rst, que_cate_arr_count_no_rst = Utils.get_que_cate_arr(que_ans_time_arr_no_rst)
 
 # simple frequency
 all_dial_count = len(que_ans_time_arr_dgn) + len(que_ans_time_arr_no_rst)
