@@ -64,7 +64,7 @@ for cat in que_cate_arr_dgn:
 # plt.legend((p1[0], p2[0]), ('percentage of complete dialogue', 'percentage of uncompleted dialogue'))
 # plt.show()
 
-# average time of complete dialogue and uncompleted dialogue and their ratio
+# plot average time of complete dialogue and uncompleted dialogue and their ratio
 # ind = np.arange(len(cate_cmp_arr))    # the x locations for the groups
 # width = 0.6       # the width of the bars: can also be len(x) sequence
 # time_dgn = [cate_cmp_arr[cat][2][0] for cat in cate_cmp_arr]
@@ -80,4 +80,30 @@ for cat in que_cate_arr_dgn:
 # plt.xticks(ind, [cat for cat in cate_cmp_arr], fontproperties=font)
 # # plt.yticks(np.arange(0, 81, 10))
 # plt.legend((p1[0], p2[0]), ('average time of complete dialogue', 'average time of uncompleted dialogue'))
+# plt.show()
+
+# 每个问题退出对话的占比
+# all_dial_count = len(que_ans_time_arr_dgn) + len(que_ans_time_arr_no_rst)
+# len_dial_dgn = dict(Counter([len(qat) for qat in que_ans_time_arr_dgn]))
+# len_dial_dgn = sorted(len_dial_dgn.items(), key=lambda x: x[0])
+# len_dial_no_rst = dict(Counter([len(qat) for qat in que_ans_time_arr_no_rst]))
+# len_dial_no_rst = sorted(len_dial_no_rst.items(), key=lambda x: x[0])
+# # plot it
+# ind = np.arange(len_dial_no_rst[-1][0]+1)
+# width = 0.6
+# prob = []
+# for i in range(len(ind)):
+#     prob.append(0)
+# for _, ld in enumerate(len_dial_no_rst):
+#     prob[ld[0]] = ld[1]/all_dial_count*100
+#     print(ld[0], ld[1], "%.2f" % (ld[1]/all_dial_count*100) + "%")
+#     # all_dial_count = all_dial_count - len_dial_dgn[_][1] - len_dial_no_rst[_][1]
+# print(all_dial_count)
+# p1 = plt.bar(ind, prob, width)
+# for p in p1:
+#     x = p.get_x()
+#     height = p.get_height()
+#     plt.text(x-0.1, height+0.02, "%.2f" % p.get_height())
+# plt.ylabel('proportion (%)')
+# plt.title('The proportion of quitting on problem X')
 # plt.show()

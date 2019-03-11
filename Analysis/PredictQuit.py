@@ -25,10 +25,11 @@ que_ans_time_arr_no_rst = Utils.get_que_ans_time_arr(source_path, data_no_rst)
 
 # simple frequency
 all_dial_count = len(que_ans_time_arr_dgn) + len(que_ans_time_arr_no_rst)
+len_dial_dgn = dict(Counter([len(qat) for qat in que_ans_time_arr_dgn]))
+len_dial_dgn = sorted(len_dial_dgn.items(), key=lambda x: x[0])
 len_dial_no_rst = dict(Counter([len(qat) for qat in que_ans_time_arr_no_rst]))
 len_dial_no_rst = sorted(len_dial_no_rst.items(), key=lambda x: x[0])
-for ld in len_dial_no_rst:
-    print(ld[0], ld[1], "%.2f" % (ld[1]/all_dial_count*100) + "%")
+# plot it
 ind = np.arange(len_dial_no_rst[-1][0]+1)
 width = 0.6
 prob = []
@@ -36,6 +37,9 @@ for i in range(len(ind)):
     prob.append(0)
 for _, ld in enumerate(len_dial_no_rst):
     prob[ld[0]] = ld[1]/all_dial_count*100
+    print(ld[0], ld[1], "%.2f" % (ld[1]/all_dial_count*100) + "%")
+    all_dial_count = all_dial_count - len_dial_dgn[_][1] - len_dial_no_rst[_][1]
+print(all_dial_count)
 p1 = plt.bar(ind, prob, width)
 for p in p1:
     x = p.get_x()
