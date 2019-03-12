@@ -65,22 +65,22 @@ for cat in que_cate_arr_dgn:
 # plt.show()
 
 # plot average time of complete dialogue and uncompleted dialogue and their ratio
-# ind = np.arange(len(cate_cmp_arr))    # the x locations for the groups
-# width = 0.6       # the width of the bars: can also be len(x) sequence
-# time_dgn = [cate_cmp_arr[cat][2][0] for cat in cate_cmp_arr]
-# time_no_rst = [cate_cmp_arr[cat][2][1] for cat in cate_cmp_arr]
-# p1 = plt.bar(ind, time_dgn, width)
-# p2 = plt.bar(ind, time_no_rst, width, bottom=time_dgn)
-# for p_, p__ in zip(p1, p2):
-#     x = p_.get_x()
-#     height = p_.get_height() + p__.get_height()
-#     plt.text(x, height+0.7, "%.2f" % (p_.get_height() / p__.get_height()))
-# plt.ylabel('average time (s)')
-# plt.title('average time of complete dialogue and uncompleted dialogue and their ratio')
-# plt.xticks(ind, [cat for cat in cate_cmp_arr], fontproperties=font)
-# # plt.yticks(np.arange(0, 81, 10))
-# plt.legend((p1[0], p2[0]), ('average time of complete dialogue', 'average time of uncompleted dialogue'))
-# plt.show()
+ind = np.arange(len(cate_cmp_arr))    # the x locations for the groups
+width = 0.6       # the width of the bars: can also be len(x) sequence
+time_dgn = [cate_cmp_arr[cat][2][0] for cat in cate_cmp_arr]
+time_no_rst = [cate_cmp_arr[cat][2][1] for cat in cate_cmp_arr]
+p1 = plt.bar(ind, time_dgn, width)
+p2 = plt.bar(ind, time_no_rst, width, bottom=time_dgn)
+for p_, p__ in zip(p1, p2):
+    x = p_.get_x()
+    height = p_.get_height() + p__.get_height()
+    plt.text(x, height+0.7, "%.2f" % (p_.get_height() / p__.get_height()))
+plt.ylabel('average time (s)')
+plt.title('average time of complete dialogue and uncompleted dialogue and their ratio')
+plt.xticks(ind, [cat for cat in cate_cmp_arr], fontproperties=font)
+# plt.yticks(np.arange(0, 81, 10))
+plt.legend((p1[0], p2[0]), ('average time of complete dialogue', 'average time of uncompleted dialogue'))
+plt.show()
 
 # 每个问题退出对话的占比
 # all_dial_count = len(que_ans_time_arr_dgn) + len(que_ans_time_arr_no_rst)
