@@ -1,0 +1,61 @@
+
+round: 0 number: 9 probability: 0.70%
+round: 1 number: 71 probability: 5.59%
+round: 2 number: 54 probability: 4.56%
+round: 3 number: 41 probability: 3.71%
+round: 4 number: 36 probability: 3.49%
+round: 5 number: 30 probability: 3.12%
+round: 6 number: 29 probability: 3.27%
+round: 7 number: 17 probability: 2.13%
+round: 8 number: 15 probability: 2.10%
+round: 9 number: 11 probability: 1.76%
+round: 10 number: 14 probability: 2.63%
+round: 11 number: 9 probability: 1.99%
+round: 12 number: 9 probability: 2.37%
+round: 13 number: 6 probability: 2.01%
+round: 14 number: 4 probability: 1.64%
+round: 15 number: 10 probability: 5.18%
+round: 16 number: 5 probability: 3.38%
+round: 17 number: 3 probability: 2.70%
+round: 18 number: 3 probability: 3.53%
+round: 19 number: 5 probability: 7.46%
+round: 20 number: 2 probability: 4.35%
+round: 22 number: 1 probability: 3.12%
+round: 23 number: 1 probability: 4.17%
+round: 24 number: 1 probability: 5.88%
+round: 25 number: 1 probability: 9.09%
+round: 26 number: 1 probability: 11.11%
+round: 29 number: 1 probability: 14.29%
+
+time: 0s probability: 0.70%
+time: 10s probability: 10.21%
+time: 20s probability: 3.19%
+time: 30s probability: 3.19%
+time: 40s probability: 2.63%
+time: 50s probability: 1.78%
+time: 60s probability: 2.62%
+time: 70s probability: 2.24%
+time: 80s probability: 1.76%
+time: 90s probability: 1.98%
+time: 100s probability: 2.21%
+time: 110s probability: 2.34%
+time: 120s probability: 1.72%
+time: 130s probability: 1.96%
+time: 140s probability: 2.19%
+time: 150s probability: 1.41%
+time: 160s probability: 0.80%
+time: 170s probability: 0.91%
+time: 180s probability: 2.65%
+time: 200s probability: 2.41%
+time: 210s probability: 0.70%
+time: 230s probability: 0.80%
+time: 240s probability: 0.86%
+time: 250s probability: 0.93%
+time: 300s probability: 1.00%
+time: 320s probability: 1.12%
+time: 340s probability: 1.23%
+time: 350s probability: 1.35%
+time: 360s probability: 1.54%
+time: 420s probability: 1.82%
+time: 470s probability: 2.00%
+time: 800s probability: 8.11%

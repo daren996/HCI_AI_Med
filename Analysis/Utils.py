@@ -107,7 +107,7 @@ def get_que_cate_arr1(que_ans_time_arr):
                         classified = True
             if not classified:
                 # print(qu[0])
-                que_cate_arr["else"].append((qu[0], qu[2]))
+                que_cate_arr["症状信息"].append((qu[0], qu[2]))
     que_cate_arr_count = sum([len(que_cate_arr[cat]) for cat in que_cate_arr])
     return que_cate_arr, que_cate_arr_count
 
@@ -160,8 +160,7 @@ ques_type1 = {"选择服务": ["请问您需要哪方面的服务"],
               "症状信息": ["多久了", "多长时间了", "您的描述符合以下哪种症状", "符合以下哪种描述", "是否伴有", "性质",
                        "部位", "颜色", "气味", "形状", "范围", "程度", "加重", "持续性", "阵发性", "频率",
                        "如果还有其它症状，请继续输入。如果没有，请点击没有了"],
-              "病史": ["病史"],
-              "else": ["No Category but Description about Symptom at Most Time."]}
+              "病史": ["病史"]}
 
 ques_type2 = {"简答题": ["请问您需要哪方面的服务", "请选择您的症状", "对不起，没有找到相关症状，请重新输入。"],
               "数字题": ["年龄", "血压", "心率", "体温", "多久了", "多长时间了"],
