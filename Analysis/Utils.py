@@ -169,3 +169,19 @@ ques_type2 = {"简答题": ["请问您需要哪方面的服务", "请选择您�
               "多选题": ["发病前是否存在以下行为", "发病前是否有过以下情况？", "部位", "范围", "是否伴有"],
               "选择加简答": ["病史", "如果还有其它症状，请继续输入。如果没有，请点击没有了。"],
               "else": ["No Category but Description about Symptom at Most Time."]}
+
+
+def age_num2group(age_num):
+    if age_num <= 6:
+        return '0~6岁'
+    elif age_num <= 15:
+        return '7~15岁'
+    elif age_num <= 35:
+        return '16~35岁'
+    elif age_num <= 60:
+        return '36~60岁'
+    else:
+        return '大于60岁'
+
+
+age_group = ['0~6岁', '7~15岁', '16~35岁', '36~60岁', '大于60岁']

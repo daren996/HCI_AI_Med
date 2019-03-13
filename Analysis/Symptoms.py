@@ -52,7 +52,7 @@ for smp in symptoms:
         no_cat.append((smp, symptoms[smp]))
     else:
         has_cat += 1
-# print(category_smp)
+print(category_smp)
 # print(has_cat)
 # for cat in category_cnt:
 #     print(cat, category_cnt[cat])

@@ -114,7 +114,6 @@ with open(source_path + data_set, "r") as in_file:
             que_ans_time.append((r_time[x][0], c_time[x][0], time_dif))
         que_ans_time_arr.append(que_ans_time)
 print(len(que_ans_time_arr))
-
 with open('quesTime.csv', 'w') as csvfile:
     spamwriter = csv.writer(csvfile, dialect='excel')
     spamwriter.writerow(["问题", "时间", "问题", "时间", "问题", "时间"])
