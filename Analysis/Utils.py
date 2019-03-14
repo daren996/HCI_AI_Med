@@ -184,4 +184,80 @@ def age_num2group(age_num):
         return '大于60岁'
 
 
-age_group = ['0~6岁', '7~15岁', '16~35岁', '36~60岁', '大于60岁']
+age_group = ['0~6岁', '7~15岁', '16~35岁', '36~60岁', '大于60岁', 'unknown']
+age_decode = {'0~6岁': '0-6 years old', '7~15岁': '7-15 years old', '16~35岁': '16-35 years old',
+              '36~60岁': '35-60 years old', '大于60岁': '>60 years old', 'unknown': 'unknown'}
+
+
+# get time group of a day. format of timeStr: xx:xx:xx
+def get_time_group(time_str):
+    temp = time_str.split(":")
+    tim = int(temp[0])
+    if tim < 6:
+        return 'night(23-6*)'
+    if tim < 12:
+        return 'morning(6-12)'
+    if tim < 19:
+        return 'afternoon(12-19)'
+    if tim < 23:
+        return 'evening(19-23)'
+    else:
+        return 'night(23-6*)'
+
+
+time_group = ['morning(6-12)', 'afternoon(12-19)', 'evening(19-23)', 'night(23-6*)', 'unknown']
+
+
+# get span group. format of timeStr: xx:xx:xx
+def get_span_group(span):
+    if span < 2:
+        return '0-2'
+    if span < 10:
+        return '2-10'
+    if span < 50:
+        return '10-50'
+    if span < 100:
+        return '50-100'
+    if span < 150:
+        return '100-150'
+    else:
+        return '150*'
+
+
+span_group = ['0-2', '2-10', '10-50', '50-100', '100-150', '150*', 'unknown']
+valid_group = ['valid', 'invalid']
+gender_group = ['男', '女', 'unknown']
+gender_decode = {'男': 'male', '女': 'female', 'unknown': 'unknown'}
+
+
+def get_cross(cross_type, obj):
+    cross = "unknown"
+    if cross_type == "age":
+        if obj["dial"][-1]["speaker"] == "Robot":
+            rst = json.loads(obj["dial"][-1]["content"])
+            cross = rst["attachment_dict"]["age_group"]
+        else:
+            for _, dial in enumerate(obj["dial"]):
+                if "年龄" in dial["content"]:
+                    age_num = obj["dial"][_ + 1]["content"][0:-1]
+                    cross = age_num2group(int(age_num))
+    elif cross_type == "gender":
+        if obj["dial"][-1]["speaker"] == "Robot":
+            rst = json.loads(obj["dial"][-1]["content"])
+            if not rst["attachment_dict"]:
+                print("ERROR no attachment_dict:", obj["id"])
+                return cross
+            cross = rst["attachment_dict"]["gender"]
+        else:
+            for _, dial in enumerate(obj["dial"]):
+                if "性别" in dial["content"]:
+                    cross = obj["dial"][_ + 1]["content"]
+                    if cross not in ["男", "女"]:
+                        print("ERROR irregular gender:", cross, obj["id"])
+    elif cross_type == "span":
+        span = getTime(obj["dial"][-1]["time"][1]) - getTime(obj["dial"][0]["time"][1])
+        cross = get_span_group(span)
+    elif cross_type == "time":
+        cross = get_time_group(obj["dial"][0]["time"][1])
+    return cross
+
