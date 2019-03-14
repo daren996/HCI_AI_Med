@@ -261,3 +261,6 @@ def get_cross(cross_type, obj):
         cross = get_time_group(obj["dial"][0]["time"][1])
     return cross
 
+
+dis_cate = ["头", "耳鼻喉", "胸", "口咳牙痰", "腹肚胃", "女经乳", "性", "尿", "便肛肠", "痒", "疼痛"]
+
