@@ -1,4 +1,5 @@
 import json
+import jieba
 
 
 # format of timeStr: xx:xx:xx
@@ -259,8 +260,59 @@ def get_cross(cross_type, obj):
         cross = get_span_group(span)
     elif cross_type == "time":
         cross = get_time_group(obj["dial"][0]["time"][1])
+    elif cross_type == "description":
+        des = obj["dial"][3]["content"]
+        des_cut = list(jieba.cut(des, cut_all=True))
+        cross = get_des_caste(des, des_cut)
     return cross
 
 
-dis_cate = ["头", "耳鼻喉", "胸", "口咳牙痰", "腹肚胃", "女经乳", "性", "尿", "便肛肠", "痒", "疼痛"]
+def get_des_caste(des, des_cut):
+    cat_arr = []
+    for cat in des_cate:
+        for ca in cat:
+            if ca in des:
+                cat_arr.append(cat)
+    if "呼吸" in des or "心脏" in des or "心肌" in des or "静脉" in des \
+            or "心跳" in des:
+        cat_arr.append('肺肝肾')
+    if "发烧" in des or "低烧" in des or "感冒" in des or "高烧" in des:
+        cat_arr.append('头晕')
+    if "粉刺" in des or "面瘫" in des:
+        cat_arr.append('脸')
+    if "扁桃体" in des:
+        cat_arr.append('口牙嘴舌')
+    if "呕吐" in des:
+        cat_arr.append('腹肚胃')
+    if "指甲" in des or "拇指" in des or "四肢" in des:
+        cat_arr.append('手脚腿指')
+    if "皮肤" in des or "屁股" in des:
+        cat_arr.append('身汗胖')
+    if "白带" in des or "月经" in des or "姨妈" in des or "例假" in des \
+            or "卵巢" in des or "闭经" in des or "妇科" in des or "乳头" in des:
+        cat_arr.append('女乳')
+    if "前列腺" in des or "膀胱" in des:
+        cat_arr.append('尿')
+    if "生殖器" in des or "早泄" in des or "淫" in des or "勃起" in des \
+            or "阴茎" in des or "早泄" in des or "睾" in des or "包皮" in des \
+            or "啪啪" in des or "阳瘘" in des or "外阴" in des or "遗精" in des \
+            or "同房" in des or "阴囊" in des or "龟头" in des or "同房" in des:
+        cat_arr.append('性')
+    if "过敏" in des:
+        cat_arr.append('痘')
+    if "吐奶" in des or "宝宝" in des or "新生儿" in des:
+        cat_arr.append('孩')
+    if len(cat_arr) == 0:
+        cat_arr.append('unknown')
+    return cat_arr
 
+
+des_cate = ["胸腰", "肺肝肾", "脑", "眼", "脸", "耳鼻喉咳痰咽", "口牙嘴舌", "腹肚胃", "手脚腿指", "身汗胖", "女乳",
+            "性", "尿", "便肛肠", "血", "头晕", "痒", "疼痛", "痘", "疮疤疹糜", "肿胀", "睡寐梦醒", "孩", "unknown"]
+des_decode = {"胸腰": "腰部胸部", "肺肝肾": "肺肝肾和心脏", "脑": "大脑", "眼": "眼部", "脸": "脸部", "耳鼻喉咳痰咽": "耳鼻喉",
+              "口牙嘴舌": "口腔", "腹肚胃": "腹部肠胃疾病", "手脚腿指": "四肢", "身汗胖": "全身性", "女乳": "女性疾病",
+              "性": "性疾病", "尿": "泌尿", "便肛肠": "肛肠", "血": "血液", "头晕": "头晕发烧", "痒": "发痒", "疼痛": "疼痛",
+              "痘": "过敏长痘", "疮疤疹糜": "疮疤糜烂", "肿胀": "肿胀", "睡寐梦醒": "睡眠质量", "孩": "儿科",
+              "unknown": "unknown"}
+
+des_severity_group = ["非常严重", "一般严重", "轻微", ""]
