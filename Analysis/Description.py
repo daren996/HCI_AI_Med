@@ -15,7 +15,7 @@ import Utils
 from matplotlib.font_manager import FontProperties
 from scipy import interpolate
 
-font = FontProperties(fname='/System/Library/Fonts/PingFang.ttc')
+font = FontProperties(fname='/System/Library/Fonts/PingFang.ttc', size=8)
 # plt.rcParams['font.sans-serif'] = ['SimHei']
 plt.rcParams['axes.unicode_minus'] = False
 plt.rcParams['font.size'] = 9
@@ -25,41 +25,45 @@ data_set = "dial.txt"
 
 
 # get description category distribution
-def get_distribution():
+def get_distribution(des_group):
     des_all = []
     des_cat = {}
     des_cat_dis = {}
-    for dc in Utils.des_cate:
+    for dc in des_group:
         des_cat_dis[dc] = 0
         des_cat[dc] = []
-    des_cat_dis['unknown'] = 0
-    des_cat['unknown'] = []
+    # des_cat_dis['unknown'] = 0
+    # des_cat['unknown'] = []
+    dial_count = 0
     with open(source_path + data_set, "r") as in_file:
         for line in in_file.readlines():
             obj = json.loads(line)
             if len(obj["dial"]) > 2:
+                dial_count += 1
+                cat_arr = Utils.get_cross("description", obj)
                 des = obj["dial"][3]["content"]
-                des_cut = list(jieba.cut(des, cut_all=True))
-                des_all.append(des)
-                cat_arr = Utils.get_des_caste(des, des_cut)
                 for cat in cat_arr:
-                    des_cat_dis[cat] += 1
-                    des_cat[cat].append(des)
-                    # if cat == 'unknown':
-                    #     print(des)
+                    if cat in des_group:
+                        des_cat_dis[cat] += 1
+                        des_cat[cat].append(des)
+                        # if cat == 'unknown':
+                        #     print(des)
     print(des_cat_dis)
+    des_cat_dis_sorted = sorted(des_cat_dis.items(), key=lambda x: x[1], reverse=True)
     # for cat in des_cat:
     #     print(cat, des_cat_dis[cat], Utils.des_decode[cat])
     #     for des in des_cat[cat]:
     #         print("\t" + des)
     #     print()
     # plot distribution
-    plt.bar(np.arange(len(des_cat_dis)), [des_cat_dis[des] for des in des_cat_dis])
+    plt.bar(np.arange(len(des_cat_dis_sorted)), [dcd[1] for dcd in des_cat_dis_sorted])
     plt.xlabel('category')
     plt.ylabel('distribution')
     plt.title('The distribution of category of description')
-    for _, des_num in enumerate(des_cat_dis.items()):
-        plt.text(_ - 1, des_num[1] + 0.5, Utils.des_decode[des_num[0]] + ":%d" % (des_num[1]), fontproperties=font)
+    for _, des_num in enumerate(des_cat_dis_sorted):
+        plt.text(_ - 0.5, des_num[1] + 0.5,
+                 Utils.des_decode[des_num[0]] + ":%d" % (des_num[1]/dial_count*100) + "%",
+                 fontproperties=font)
     plt.show()
 
 
@@ -133,7 +137,8 @@ def plot_cross_des(des_group_arr, cross_group, cross_type, title, x_label):
 dc_group = {'time': Utils.time_group, 'span': Utils.span_group, 'age': Utils.age_group, 'gender': Utils.gender_group}
 
 if __name__ == '__main__':
-    get_distribution()
+    des_gro = Utils.des_cate[:-3]
+    get_distribution(des_gro)
     # cross_type = 'time'  # time, span, age, gender
     # des_cross_group_arr = cross_anl_des(dc_group[cross_type], source_path + data_set, cross_type=cross_type)
     # print(des_cross_group_arr)

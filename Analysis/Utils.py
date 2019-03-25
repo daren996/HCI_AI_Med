@@ -1,5 +1,15 @@
 import json
+from collections import Counter
 import jieba
+import numpy as np
+import matplotlib.pyplot as plt
+from matplotlib.font_manager import FontProperties
+from scipy import interpolate
+
+font = FontProperties(fname='/System/Library/Fonts/PingFang.ttc', size=8)
+# plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
+plt.rcParams['font.size'] = 9
 
 
 # format of timeStr: xx:xx:xx
@@ -308,11 +318,27 @@ def get_des_caste(des, des_cut):
 
 
 des_cate = ["胸腰", "肺肝肾", "脑", "眼", "脸", "耳鼻喉咳痰咽", "口牙嘴舌", "腹肚胃", "手脚腿指", "身汗胖", "女乳",
-            "性", "尿", "便肛肠", "血", "头晕", "痒", "疼痛", "痘", "疮疤疹糜", "肿胀", "睡寐梦醒", "孩", "unknown"]
-des_decode = {"胸腰": "腰部胸部", "肺肝肾": "肺肝肾和心脏", "脑": "大脑", "眼": "眼部", "脸": "脸部", "耳鼻喉咳痰咽": "耳鼻喉",
+            "性", "尿", "便肛肠", "血", "头晕", "痘", "疮疤疹糜", "肿胀", "睡寐梦醒眠", "孩", "痒", "疼痛", "unknown"]
+des_decode = {"胸腰": "腰部\n胸部", "肺肝肾": "肺肝肾和\n心脏", "脑": "大脑", "眼": "眼部", "脸": "脸部", "耳鼻喉咳痰咽": "耳鼻喉",
               "口牙嘴舌": "口腔", "腹肚胃": "腹部肠胃疾病", "手脚腿指": "四肢", "身汗胖": "全身性", "女乳": "女性疾病",
               "性": "性疾病", "尿": "泌尿", "便肛肠": "肛肠", "血": "血液", "头晕": "头晕发烧", "痒": "发痒", "疼痛": "疼痛",
-              "痘": "过敏长痘", "疮疤疹糜": "疮疤糜烂", "肿胀": "肿胀", "睡寐梦醒": "睡眠质量", "孩": "儿科",
+              "痘": "过敏长痘", "疮疤疹糜": "疮疤糜烂", "肿胀": "肿胀", "睡寐梦醒眠": "睡眠质量", "孩": "儿科",
               "unknown": "unknown"}
 
 des_severity_group = ["非常严重", "一般严重", "轻微", ""]
+
+des_cate_cmp = {"呼吸道气管": 63.06, "心脏": 7.71, "血压": 7.46, "骨科": 7.45, "胃病": 5.26,
+                "大脑": 5.26, "肺病": 2.05, "其他": 1.75}
+
+# des_cat_dis_sorted = sorted(des_cate_cmp.items(), key=lambda x: x[1], reverse=True)
+# print(des_cat_dis_sorted)
+# plt.bar(np.arange(len(des_cat_dis_sorted)), [dcd[1] for dcd in des_cat_dis_sorted])
+# plt.xlabel('category')
+# plt.ylabel('distribution')
+# plt.title('The distribution of category of description\nstatistic from hospital')
+# for _, des_num in enumerate(des_cat_dis_sorted):
+#     plt.text(_ - 0.5, des_num[1] + 0.5,
+#              des_num[0] + ":%s" % (des_num[1]) + "%",
+#              fontproperties=font)
+# plt.show()
+
